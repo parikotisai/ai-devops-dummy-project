@@ -6,7 +6,8 @@ const app = express();
 app.use(cors());
 
 const API_SECRET = process.env.API_SECRET;
-
+const DB_USER = process.env.DB_USER;
+console.log("DB User:", DB_USER);
 app.get('/api/todos', (req, res) => {
   console.log("Secret Used:", process.env.API_SECRET);
   res.json([
