@@ -5,6 +5,8 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 
+const API_SECRET = process.env.API_SECRET;
+
 app.get('/api/todos', (req, res) => {
   console.log("Secret Used:", process.env.API_SECRET);
   res.json([
