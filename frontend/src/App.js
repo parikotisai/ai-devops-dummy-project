@@ -6,7 +6,8 @@ function App() {
 
   useEffect(() => {
     // Fetch data from our backend
-    fetch('http://localhost:8080/api/todos')
+    const apiUrl = process.env.REACT_APP_BACKEND_API_URL;
+    fetch(apiUrl)
       .then(res => res.json())
       .then(data => setTodos(data))
       .catch(err => console.error("Failed to fetch todos:", err));

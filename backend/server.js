@@ -5,10 +5,8 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 
-const API_SECRET = process.env.API_SECRET;
-
 app.get('/api/todos', (req, res) => {
-  console.log("Secret Used:", API_SECRET);
+  console.log("Secret Used:", process.env.API_SECRET);
   res.json([
     { id: 1, text: 'Setup AI DevOps Agent' },
     { id: 2, text: 'Deploy automatically' }
