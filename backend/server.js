@@ -1,4 +1,3 @@
-// backend/server.js
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -6,8 +5,7 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 
-// A hardcoded secret - Agent 1 should find this!
-const API_SECRET = 'my-super-secret-key-12345';
+const API_SECRET = process.env.API_SECRET;
 
 app.get('/api/todos', (req, res) => {
   console.log("Secret Used:", API_SECRET);
