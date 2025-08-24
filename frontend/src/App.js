@@ -4,22 +4,24 @@ import { WEBSITE_TITLE } from '../constants';
 const App = () => {
   const [todos, setTodos] = useState([]);
   const [fetchError, setFetchError] = useState(null);
-  const apiUrl = process.env.REACT_APP_API_URL || 'https://api.example.com'; // default fallback URL
+  const apiUrl = process.env.REACT_APP_API_URL || ''; // no hardcoded URL
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        setTodos(data);
-        console.log("Successfully fetched todos.");
-      } catch (error) {
-        setFetchError(error);
-        console.error("Failed to fetch todos:", error);
+    if (apiUrl) {
+      async function fetchData() {
+        try {
+          const response = await fetch(apiUrl);
+          const data = await response.json();
+          setTodos(data);
+          console.log("Successfully fetched todos.");
+        } catch (error) {
+          setFetchError(error);
+          console.error("Failed to fetch todos:", error);
+        }
       }
+      fetchData();
     }
-    fetchData();
-  }, [apiUrl, todos, fetchError]);
+  }, [apiUrl]); // depend only on apiUrl
 
   return (
     <div>
