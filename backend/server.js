@@ -19,7 +19,7 @@ try {
     ],
   });
 } catch (err) {
-  console.error('Error creating logger: ', err);
+  logger.error('Error creating logger: ', err);
   process.exit(1);
 }
 
@@ -38,6 +38,15 @@ app.get('/api/todos', (req, res) => {
 
 app.get('/health', (req, res) => {
   res.status(200).json({ message: 'Server is up and running' });
+});
+
+app.get('/status', (req, res) => {
+  res.status(200).json({ message: 'API Endpoints are available' });
+});
+
+app.get('/uptime', (req, res) => {
+  const uptime = process.uptime();
+  res.status(200).json({ message: `Server uptime: ${uptime} seconds` });
 });
 
 app.listen(port, () => {
