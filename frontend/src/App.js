@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { WEBSITE_TITLE } from '../constants';
 
-const apiUrl = process.env.REACT_APP_API_URL || 'https://api.example.com'; // default fallback URL
-
-function App() {
+const App = () => {
   const [todos, setTodos] = useState([]);
   const [fetchError, setFetchError] = useState(null);
+  const apiUrl = process.env.REACT_APP_API_URL || 'https://api.example.com'; // default fallback URL
 
   useEffect(() => {
     async function fetchData() {
@@ -20,8 +19,7 @@ function App() {
       }
     }
     fetchData();
-    //eslint-disable-next-line
-  }, [apiUrl]);
+  }, [apiUrl, todos, fetchError]);
 
   return (
     <div>
@@ -37,6 +35,6 @@ function App() {
       )}
     </div>
   );
-}
+};
 
 export default App;
