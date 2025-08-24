@@ -1,0 +1,33 @@
+# This blueprint defines the desired state for a production-ready project.
+project_type: fullstack_react_node
+
+# --- Part 1: Required Files ---
+# The agent will check for these files using simple, reliable code. No AI.
+required_files:
+  - name: Dockerfile.frontend
+    location: frontend/
+  - name: Dockerfile.backend
+    location: backend/
+  - name: docker-compose.yml
+    location: ./  # ./ means the project root
+  - name: .gitignore
+    location: ./
+  - name: .env.example
+    location: ./
+
+# --- Part 2: Code Content Rules ---
+# The agent will use the AI to answer specific YES/NO questions about these files.
+code_rules:
+  - file: backend/server.js
+    audits:
+      - feature: health_check_endpoint
+        prompt: "Does this Express.js code contain a '/health' or '/status' endpoint? Respond with only YES or NO."
+      - feature: structured_logging
+        prompt: "Does this Node.js code use a structured logging library like Winston or Morgan instead of only console.log? Respond with only YES or NO."
+
+  - file: frontend/src/App.js
+    audits:
+      - feature: no_hardcoded_urls
+        prompt: "Does this React code contain a hardcoded fetch URL that doesn't use process.env? Respond with only YES or NO."
+      - feature: use_effect_dependencies
+        prompt: "In this React code, is there a useEffect hook that is missing a dependency array `[]`? Respond with only YES or NO."
