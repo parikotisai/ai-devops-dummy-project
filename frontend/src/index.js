@@ -1,17 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import express from 'express';
+import renderer from './renderer';
+import expressLayouts from 'express-ejs-layouts';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+const app = express();
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+app.use(expressLayouts);
+
+const healthCheck = (req, res) => {
+  res.status(200).send('OK');
+};
+
+app.get('/health', healthCheck);
+
+app.use(express.static('public'));
+
+app.get('*', (req, res) => {
+  res.send(renderer(req));
+});
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server started on port ${port}`);
+});

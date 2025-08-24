@@ -1,0 +1,20 @@
+# Set the base image as the official Node.js 16 image
+FROM node:16
+
+# Set the working directory in the container to /app
+WORKDIR /app
+
+# Copy the package.json file into the container
+COPY package*.json ./
+
+# Install dependencies specified in package.json
+RUN npm install
+
+# Copy the application code into the container
+COPY . .
+
+# Expose the port that the frontend will use
+EXPOSE 3000
+
+# Start the frontend application when the container starts
+CMD ["npm", "start"]
